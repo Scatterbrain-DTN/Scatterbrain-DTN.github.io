@@ -1,0 +1,16 @@
+{% set image = resize_image(path=path, width=width, op="fit_width") %}
+
+<div class="flex items-center">
+    <figure>
+        <img
+            class="h-auto max-w-full rounded-lg"
+            src="{{ image.url }}"
+            alt="{{ desc }}"
+        />
+        <figcaption
+            class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"
+        >
+            {{ desc }}
+        </figcaption>
+    </figure>
+</div>

@@ -1,0 +1,38 @@
+# The URL the site will be built for
+base_url = "https://"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = false
+minify_html = true
+theme = "daisy"
+description = "Platform for store-and-forward networking apps. No internet required!"
+
+title = "Scatterbrain"
+default_language = "en"
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+generate_feeds = true
+
+[search]
+index_format = "elasticlunr_json"
+include_description = true
+
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+highlight_theme = "css"
+
+[extra]
+daisyui_theme_dark = "night"
+# Put all your custom variables here
+build_search_index = true
+generate_feeds = true
+[extra.navbar]
+links = [
+    { url = "get_started", i18n_key = "get_started" },
+    { url = "docs", i18n_key = "docs" },
+    { url = "blog", i18n_key = "blog" },
+]

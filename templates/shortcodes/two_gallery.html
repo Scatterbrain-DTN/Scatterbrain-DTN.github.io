@@ -1,0 +1,28 @@
+{% set image1 = resize_image(path=path1, width=270, height=600, op="scale") %}
+{% set image2 = resize_image(path=path2, width=270, height=600, op="scale") %}
+<div class="flex items-center">
+    <figure>
+        <img
+            class="h-auto max-w-full rounded-lg"
+            src="{{ image1.url }}"
+            alt="{{ desc1 }}"
+        />
+        <figcaption
+            class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"
+        >
+            {{ desc1 }}
+        </figcaption>
+    </figure>
+    <figure>
+        <img
+            class="h-auto max-w-full rounded-lg"
+            src="{{ image2.url }}"
+            alt="{{ desc2 }}"
+        />
+        <figcaption
+            class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"
+        >
+            {{ desc2 }}
+        </figcaption>
+    </figure>
+</div>

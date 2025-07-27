@@ -1,0 +1,4 @@
+[submodule "themes/daisy"]
+	path = themes/daisy
+	url = https://codeberg.org/winterstein/zola-theme-daisy.git
+	branch = main

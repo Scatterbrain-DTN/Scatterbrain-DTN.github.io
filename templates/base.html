@@ -1,0 +1,293 @@
+{%- import "macros/content.html" as content -%}
+{%- import "macros/themes.html" as themes -%}
+{%- import "macros/translation.html" as translation -%}
+
+{#- Load translations from i18n directory (theme directory and optionally the site directory) -#}
+{%- set i18n = load_data(path="themes/daisy/i18n/" ~ lang ~ ".toml", required=true) -%}
+{%- set i18n_user = load_data(path="i18n/" ~ lang ~ '.toml', required=false) -%}
+{%- if not i18n_user -%}{%- set i18n_user = [] -%}{%- endif -%}
+
+{#- Load icons from the root directory (preferred site directory, fallback theme directory) -#}
+{%- set icons = load_data(path="icons.toml", required=false) -%}
+{%- if not icons -%}{%- set icons = load_data(path="themes/daisy/icons.toml", required=true) -%}{%- endif -%}
+
+<!doctype html>
+<html lang="{{ lang }}" data-theme="{% if config.extra.daisyui_theme_light %}{{ config.extra.daisyui_theme_light }}{% elif config.extra.daisyui_theme_dark %}{{ config.extra.daisyui_theme_dark }}{% endif %}">
+
+<head>
+    <title>{% block title %}{% if page.title %}{{ page.title }} | {% endif %}{{ config.title }}{% endblock title %}</title>
+
+    <!-- meta data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}">
+
+    <!-- stylesheets, fonts, feeds -->
+    {{ content::include_stylesheet(file="css/main.css") }}
+    {% if config.generate_feeds %}<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ content::base_path() }}{% if lang != config.default_language %}{{ lang }}/{% endif %}atom.xml">{% endif %}
+
+    <!-- favicon -->
+    {% if config.extra.favicon.svg %}<link rel="icon" href="{{ content::base_path() }}{{ config.extra.favicon.svg }}" type="image/svg+xml">{% endif %}
+
+    {% if config.extra.daisyui_theme_light or config.extra.daisyui_theme_dark -%}
+    <!-- java script for setting theme as saved in local storage (needs to be inline to avoid flicker) -->
+    <script>
+        {% if config.extra.daisyui_theme_light and config.extra.daisyui_theme_dark -%}
+        // select default theme based on preferred color scheme (as set in the browser)
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            default_theme = '{{ config.extra.daisyui_theme_dark }}'
+        } else {
+            default_theme = '{{ config.extra.daisyui_theme_light }}'
+        }
+        {%- elif config.extra.daisyui_theme_light -%}
+        // set the light theme, if only this was configured
+        default_theme = '{{ config.extra.daisyui_theme_light }}'
+        {%- elif config.extra.daisyui_theme_dark -%}
+        // set the dark theme, if only this was configured
+        default_theme = '{{ config.extra.daisyui_theme_dark }}'
+        {% endif %}
+
+        // try to get theme from local storage and set it (or the default theme) to the HTML element
+        const theme = localStorage.getItem('theme') || default_theme;
+        document.documentElement.setAttribute("data-theme", theme);
+
+        // execute code after the DOM content was loaded
+        document.addEventListener("DOMContentLoaded", function (event) {
+            // select theme at the theme selector (if it is present in the HTML code)
+            var btnEl = document.querySelector("[data-set-theme='" + theme.toString() + "']");
+            if (btnEl) {
+                btnEl.classList.add("btn-active")
+                btnEl.classList.add("btn-primary")
+            }
+        })
+    </script>
+    {%- endif %}
+
+    {%- block extra_headers -%}{%- endblock %}
+</head>
+
+<body class="h-screen">
+    {% block body %}
+    <div class="@container drawer min-h-full">
+        <input id="main-drawer" type="checkbox" class="drawer-toggle lg:hidden">
+        <div class="drawer-content flex min-h-full flex-col"><!-- to expand over the full screen even on short pages -->
+            <!-- navbar -->
+            <div class="fixed inset-x-0 top-0 z-10 text-primary-content bg-primary shadow-sm opacity-93">
+                <div class="flex flex-col items-center">
+                    <div class="navbar flex items-center">
+                        <div class="navbar-start flex items-center">
+                            {% if config.title %}<a
+                                class="btn btn-ghost hover:bg-primary-content hover:text-primary text-xl no-underline"
+                                href="{{ content::base_path() }}{% if lang != config.default_language%}{{ lang }}{% endif %}">{{
+                                config.title }}</a>{% endif %}
+                                {% if config.extra.navbar.links -%}
+                                {% for entry in config.extra.navbar.links %}
+                                {{ content::navbar_button(entry=entry, text_class="", i18n=i18n, i18n_user=i18n_user) }}
+
+                                {% endfor %}
+                                   {% endif %}
+
+                        </div>
+                        <div class="navbar-end">
+                            {% block navbar_end %}
+                            {%- if config.extra.enable_theme_switching %}
+                                {{ themes::theme_dropdown(button=content::icon(id="themes", icons=icons), label=content::translate(value="Theme", i18n=i18n, i18n_user=i18n_user)) }}
+                            {% endif %}
+                            {% if config.languages | length > 0 %}
+                            <div class="dropdown dropdown-end max-lg:hidden">
+                                <div tabindex="0"
+                                    title="{{ content::translate(value='Change Language', i18n=i18n, i18n_user=i18n_user) }}"
+                                    role="button"
+                                    class="btn btn-ghost rounded-field hover:bg-primary-content hover:text-primary">{{
+                                    content::icon(id="translate", icons=icons) }}</div>
+                                <ul tabindex="0"
+                                    class="dropdown-content bg-base-200 text-base-content rounded-box z-1 mt-4 w-52 p-2 shadow-sm overflow-scroll">
+                                    <li><button class="btn btn-active btn-primary w-full">{{
+                                            content::translate(value='language_name',
+                                            i18n=i18n, i18n_user=i18n_user) }}</button></li>
+                                    {%- for language_code,language in config.languages -%}
+                                    <li>{{ translation::link_to_translated_page(page=page | default(value=""),
+                                        language_code=language_code,
+                                        class="btn btn-ghost w-full") }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {% if config.build_search_index %}
+                            <div class="max-md:hidden">
+                                <label tabindex="0" class="input text-primary bg-primary-content focus:outline-teal-500">
+                                    {{ content::icon(id="search", class="h-[1em] opacity-50", icons=icons) }}
+                                    <input id="desktop-search" type="search" class="search-input grow"
+                                        placeholder="{{ content::translate(value=" Search", i18n=i18n, i18n_user=i18n_user) }}">
+                                    <kbd class="kbd kbd-sm bg-primary text-primary-content">⌘</kbd>
+                                    <kbd class="kbd kbd-sm bg-primary text-primary-content">K</kbd>
+                                </label>
+                            </div>
+                            <label id="search-button" for="search-bar" aria-label="open search"
+                                class="btn btn-square btn-ghost swap swap-rotate hover:bg-primary-content hover:text-primary md:hidden">
+                                {{ content::icon(id="search", icons=icons) }}
+                            </label>
+                            {% endif %}
+                            {% endblock navbar_end %}
+                            {% if config.extra.navbar.links or config.extra.enable_theme_switching or config.languages | length > 0 -%}
+                            <label for="main-drawer" aria-label="open sidebar"
+                                class="btn btn-square btn-ghost swap swap-rotate hover:bg-primary-content hover:text-primary lg:hidden">
+                                {{ content::icon(id="list", class="h-6 w-6 swap-off [:checked~*_&]:!-rotate-45 [:checked~*_&]:!opacity-0", icons=icons) }}
+                                {{ content::icon(id="x", class="h-5 w-5 swap-on [:checked~*_&]:!rotate-0 [:checked~*_&]:!opacity-100", icons=icons) }}
+                            </label>
+                            {% endif -%}
+                        </div>
+                    </div>
+                    <div id="search-bar" class="hidden md:hidden pl-2 pr-2 pb-2 w-full">
+                        <label tabindex="0" class="input text-primary bg-primary-content w-full">
+                            {{ content::icon(id="search", class="h-[1em] opacity-50", icons=icons) }}
+                            <input id="mobile-search" type="search" class="search-input grow"
+                                placeholder="{{ content::translate(value=" Search", i18n=i18n, i18n_user=i18n_user) }}">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            {# The sidebar is not shown by default. Derived templates can show the sidebar, by setting an empty'show_sidebar' block #}
+            {% block show_sidebar %}{% set hide_sidebar = true %}{% endblock %}
+
+            <!-- content -->
+            <div class="grid min-h-dvh grid-rows-[1fr_1px_auto_1px_auto] grid-cols-1
+                            {% if hide_sidebar %}{% else %}lg:grid-cols-[25em_minmax(0,1fr)]{% endif %}">
+
+                <!-- sidebar -->
+                <div
+                    class="relative col-start-1 row-span-full row-start-1 {% if hide_sidebar %}hidden{% endif %} max-lg:hidden bg-base-200">
+                    <div class="absolute inset-0">
+                        <div
+                            class="sticky top-16 pt-4 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*16))] w-2xs overflow-y-auto px-6">
+                            <div>
+                                <nav class="flex flex-col gap-8">
+                                    {% block sidebar_content %}{% endblock %}
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- main content -->
+                <main
+                    class="relative row-start-1 grid grid-cols-subgrid {% if hide_sidebar %}{% else %}lg:col-start-2{% endif %}">
+                    <div
+                        class="isolate grid max-w-2xl grid-cols-1 gap-10 mt-14 md:pt-6 md:pb-24 xl:max-w-4xl {% if hide_sidebar %}mx-auto{% else %}lg:ml-8{% endif %}">
+                        <!-- search results shown between header and content -->
+                        <div tabindex="0"
+                            class="search-results dropdown-content hidden bg-base-200 text-base-content rounded-box z-1 p-2 shadow-2xl list-none max-w-4xl flex-row lg:absolute lg:right-0 lg:mr-4 max-md:mt-10">
+                            <div class="search-results__items"></div>
+                        </div>
+
+                        <div class="pb-8">
+                            {% block content %}
+                            {% endblock content %}
+                        </div>
+                    </div>
+                </main>
+
+                <!-- footer -->
+                <div class="row-start-3 {% if hide_sidebar %}{% else %}lg:col-start-2{% endif %}">
+                    {% if paginator and paginator.number_pagers > 1 %} <!-- pagination -->
+                    <div class="join mx-auto w-full justify-center mt-4 mb-4">
+                        {% for pager in range(start=1, end=paginator.number_pagers+1) %}
+                        <a href="{% if pager == 1 %}{{ paginator.first }}{% else %}{{ paginator.base_url }}{{ pager }}{% endif %}"
+                            class="join-item btn {% if paginator.current_index == pager %}btn-active btn-secondary{% endif %}"
+                            aria-label="{{ pager }}">
+                            {{ pager }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% elif (page.lower or page.higher) and (page.extra and page.extra.show_steps) %} <!-- show steps for weighted pages -->
+                    <div class="join w-full justify-center mt-4 mb-4">
+                        {{ content::steps_progress(page=page) }}
+                    </div>
+                    {% endif %}
+
+                    {% if not config.extra.footer.hide %}
+                    <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded pt-6 gap-0">
+                        {% if config.extra.footer.links %}
+                        <nav class="grid grid-flow-col gap-4 mb-6">
+                            {% for link in config.extra.footer.links %}
+                            <a class="link link-hover"
+                                href="{{ content::base_path() }}{% if lang != config.default_language and not link.no_translation %}{{ lang }}/{% endif %}{{ link.url}}">{{
+                                i18n_user[link.i18n_key] | default(value=i18n[link.i18n_key]) }}</a>
+                            {% endfor %}
+                        </nav>
+                        {% endif %}
+                        <nav class="grid grid-flow-col gap-4 mb-6">
+                            {{ content::social_links(i18n=i18n, i18n_user=i18n_user, icons=icons) }}
+                            {% if config.generate_feeds %}
+                            <a href="{{ content::base_path() }}{% if lang != config.default_language %}{{ lang }}/{% endif %}atom.xml"
+                                title="RSS Feed" target="_blank">{{ content::icon(id="rss", class="h-8 w-8", icons=icons)
+                                }}</a>
+                            {% endif %}
+                        </nav>
+                        {% if config.extra.footer.notice %}
+                        <aside>
+                            <p>© {{ now() | date(format="%Y") }} {{ config.extra.footer.notice | safe }}</p>
+                        </aside>
+                        {% endif %}
+                    </footer>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="drawer-side z-60">
+            <label for="main-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <ul class="menu menu-lg bg-base-200 min-h-full w-80 p-4">
+                {% if config.extra.navbar.links %}
+                {% for entry in config.extra.navbar.links %}
+                <li>{{ content::drawer_button(entry=entry, i18n=i18n, i18n_user=i18n_user) }}</li>
+                {% endfor %}
+                {% endif %}
+                <hr class="mt-2 mb-2">
+                {% if config.languages | length > 0 %}
+                <li>
+                    <details>
+                        <summary class="">{{ content::translate(value="Language", i18n=i18n, i18n_user=i18n_user) }}
+                        </summary>
+                        <ul>
+                            <li><a href="{% if page %}{{ page.permalink }}{% else %}{% endif %}"
+                                    class="no-underline menu-active">{{ content::translate(value="language_name", i18n=i18n,
+                                    i18n_user=i18n_user) }}</a></li>
+                            {%- for language_code,language in config.languages -%}
+                            <li>{{ translation::link_to_translated_page(page=page | default(value=""),
+                                language_code=language_code, class="no-underline") }}</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </li>
+                {% endif %}
+                {% if config.extra.enable_theme_switching %}
+                <li>
+                    <details>
+                        <summary class="">{{ content::translate(value="Theme", i18n=i18n, i18n_user=i18n_user) }}</summary>
+                        <ul>
+                            {% for theme in config.extra.themes %}
+                            <li><button class="" data-set-theme="{{ theme.identifier }}">{{ theme.name }}</button></li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    {% if config.extra.enable_theme_switching %}{{ content::include_script(file="js/theme-change.js") }}{% endif %}
+    {% if config.build_search_index and config.search.index_format == "elasticlunr_json" -%}
+    {{ content::include_script(file="js/search.js", additional_tags='lang="' ~ lang ~ '"') }}
+    {{ content::include_script(file="elasticlunr.min.js") }}
+    {% if lang != "en" %}
+    {{ content::include_script(file="lunr.stemmer.support.min.js") }}
+    {{ content::include_script(file="lunr." ~ lang ~ ".min.js") }}
+    {% endif %}
+    {% endif %}
+    {%- block extra_javascript -%}{%- endblock extra_javascript -%}
+
+    {% endblock body %}
+</body>
