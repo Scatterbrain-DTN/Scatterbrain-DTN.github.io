@@ -1,5 +1,6 @@
 +++
-
+title = "Docs"
+description = "Technical documentation for developing Scatterbrain apps"
 +++
 
 Scatterbrain is a platform for developing applications that run without servers, cell towers, or the internet in general. This is done using a store-and-forward gossip protocol leveraging multiple transports, most of which are usable on an unmodified android phone. No hardware required. Even though the range of most transports supported by a smartphone are low (30-100 meters), people move messages great distances offline on their phone's storage just by following their everyday schedules. Messages spread like rumors throughout your social network.

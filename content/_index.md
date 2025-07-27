@@ -1,4 +1,5 @@
 +++
+title = "Scatterbrain"
 description = "Platform for store-and-forward networking apps. No internet required!"
 template = "section.html"
 +++
