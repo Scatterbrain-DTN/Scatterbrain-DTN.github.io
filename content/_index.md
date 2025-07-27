@@ -24,7 +24,7 @@ You can grab the official reference app from [Google Play](https://play.google.c
 ### User interfaces
 | App | UI | 3rd party SDKs
 | ---         | --- | --- |
-| Scatterbrain | Text chat / admin panel  | Public android API, remote desktop api |
+| Scatterbrain | Text chat / admin panel  | Android API, desktop api |
 | [Briar](https://briarproject.org/) | Text chat | No, but forks of opensource code can share data via [mailbox](https://code.briarproject.org/briar/briar-mailbox) |
 | [Bitchat](https://github.com/permissionlesstech/bitchat) | IRC-like | no |
 | [Firechat](https://web.archive.org/web/20140901121753/https://opengarden.com/firechat)| Text chat | promised but not delivered |
