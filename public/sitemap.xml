@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/</loc>
     </url>
     <url>
-        <loc>https://blog/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/blog/</loc>
     </url>
     <url>
-        <loc>https://docs/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/docs/</loc>
     </url>
     <url>
-        <loc>https://docs/android/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/docs/android/</loc>
     </url>
     <url>
-        <loc>https://docs/desktop/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/docs/desktop/</loc>
     </url>
     <url>
-        <loc>https://get_started/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/get_started/</loc>
     </url>
     <url>
-        <loc>https://get_started/faq/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/get_started/faq/</loc>
     </url>
     <url>
-        <loc>https://get_started/meshtastic/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/get_started/meshtastic/</loc>
     </url>
     <url>
-        <loc>https://get_started/permissions/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/get_started/permissions/</loc>
     </url>
     <url>
-        <loc>https://get_started/third-party/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/get_started/third-party/</loc>
     </url>
     <url>
-        <loc>https://privacy/</loc>
-    </url>
-    <url>
-        <loc>https://test/</loc>
+        <loc>https://scatterbrain.ballmerlabs.net/privacy/</loc>
     </url>
 </urlset>
