@@ -23,7 +23,7 @@ Android apps show up on the apps tab of the Scatterbrain Router app.
 
 
 ## Installing desktop Scatterbrain apps
-Scatterbrain has no official desktop client officially, so desktop apps pair with an android phone running the Scatterbrain Router app on a local network. Currently this requires both the desktop app and the android phone to be on the same wifi network. Internet is not required, only the lan is used. In offline environments, Scatterbrain desktop apps work just fine over a mobile hotspot or even usb tethering.
+Scatterbrain has no official desktop client, so desktop apps pair with an android phone running the Scatterbrain Router app on a local network. Currently this requires both the desktop app and the android phone to be on the same wifi network. Internet is not required, only the lan is used. In offline environments, Scatterbrain desktop apps work just fine over a mobile hotspot or even usb tethering.
 
 Desktop apps are required to implement a pairing UI, which may differ between different apps. Pairing will always follow these steps
 
