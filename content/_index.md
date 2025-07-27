@@ -12,7 +12,7 @@ You can grab the official reference app from [Google Play](https://play.google.c
 ## How does Scatterbrain compare with similar apps
 ### Protocols supported
 
-| Application | BLE | Wifi direct | Lora | Internet |
+| App | BLE | Wifi| Lora | Internet |
 | ---         | --- | --- | --- | --- |
 | Scatterbrain | yes  |    yes        |     yes             |     via 3rd party app    |
 | [Briar](https://briarproject.org/) | yes | yes | no | yes |
@@ -20,7 +20,7 @@ You can grab the official reference app from [Google Play](https://play.google.c
 | [Firechat](https://web.archive.org/web/20140901121753/https://opengarden.com/firechat)| yes | yes | no | yes |
 
 ### User interfaces
-| Application | Primary interface | 3rd party SDKs
+| App | UI | 3rd party SDKs
 | ---         | --- | --- |
 | Scatterbrain | Text chat / admin panel  | Public android API, remote desktop api |
 | [Briar](https://briarproject.org/) | Text chat | No, but forks of opensource code can share data via [mailbox](https://code.briarproject.org/briar/briar-mailbox) |
