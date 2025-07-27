@@ -80,12 +80,14 @@
                                 class="btn btn-ghost hover:bg-primary-content hover:text-primary text-xl no-underline"
                                 href="{{ content::base_path() }}{% if lang != config.default_language%}{{ lang }}{% endif %}">{{
                                 config.title }}</a>{% endif %}
-                                {% if config.extra.navbar.links -%}
-                                {% for entry in config.extra.navbar.links %}
-                                {{ content::navbar_button(entry=entry, text_class="", i18n=i18n, i18n_user=i18n_user) }}
-
-                                {% endfor %}
-                                   {% endif %}
+                                <ul class="menu menu-horizontal px-1 gap-x-2">
+                                    {% if config.extra.navbar.links -%}
+                                    {% for entry in config.extra.navbar.links %}
+                                    <li>{{ content::navbar_button(entry=entry, text_class="", i18n=i18n, i18n_user=i18n_user) }}
+                                    </li>
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
 
                         </div>
                         <div class="navbar-end">

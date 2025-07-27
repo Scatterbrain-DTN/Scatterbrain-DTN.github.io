@@ -94,12 +94,6 @@
         @apply pb-4;
     }
 
-    ul {
-        @apply list-outside;
-        @apply pl-6; /* Indent the list elements. */
-        @apply mb-4; /* The bottom of the list should have a margin, like the paragraphs. */
-    }
-    ,
     ol {
         @apply list-outside;
         @apply pl-6; /* Indent the list elements. */
