@@ -73,13 +73,15 @@
         <div class="drawer-content flex min-h-full flex-col"><!-- to expand over the full screen even on short pages -->
             <!-- navbar -->
             <div class="fixed inset-x-0 top-0 z-10 text-primary-content bg-primary shadow-sm opacity-93">
-                <div class="flex flex-col items-center">
-                    <div class="navbar flex items-center">
-                        <div class="navbar-start flex items-center">
+                <div class="flex flex-col items-center justify-between">
+                    <div class="navbar">
+                        <div class="navbar-start">
                             {% if config.title %}<a
                                 class="btn btn-ghost hover:bg-primary-content hover:text-primary text-xl no-underline"
                                 href="{{ content::base_path() }}{% if lang != config.default_language%}{{ lang }}{% endif %}">{{
                                 config.title }}</a>{% endif %}
+                                <div class="navbar-center max-lg:hidden lg:flex">
+
                                 <ul class="menu menu-horizontal px-1 gap-x-2">
                                     {% if config.extra.navbar.links -%}
                                     {% for entry in config.extra.navbar.links %}
@@ -88,7 +90,7 @@
                                     {% endfor %}
                                     {% endif %}
                                 </ul>
-
+                                </div>
                         </div>
                         <div class="navbar-end">
                             {% block navbar_end %}
@@ -162,7 +164,7 @@
                     class="relative col-start-1 row-span-full row-start-1 {% if hide_sidebar %}hidden{% endif %} max-lg:hidden bg-base-200">
                     <div class="absolute inset-0">
                         <div
-                            class="sticky top-16 pt-4 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*16))] w-2xs overflow-y-auto px-6">
+                            class="sticky top-16 pt-4 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*16))] w-full overflow-y-auto px-6">
                             <div>
                                 <nav class="flex flex-col gap-8">
                                     {% block sidebar_content %}{% endblock %}
@@ -174,7 +176,7 @@
 
                 <!-- main content -->
                 <main
-                    class="relative row-start-1 grid grid-cols-subgrid {% if hide_sidebar %}{% else %}lg:col-start-2{% endif %}">
+                    class="relative row-start-1 grid grid-cols-subgrid {% if hide_sidebar %}{% else %}lg:col-start-2{% endif %} m-4">
                     <div
                         class="isolate grid max-w-2xl grid-cols-1 gap-10 mt-14 md:pt-6 md:pb-24 xl:max-w-4xl {% if hide_sidebar %}mx-auto{% else %}lg:ml-8{% endif %}">
                         <!-- search results shown between header and content -->
