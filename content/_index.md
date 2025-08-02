@@ -8,6 +8,8 @@ template = "section.html"
 
 Scatterbrain is a platform for building apps that work over long distances without internet, expensive or restricted radio hardware, or long inconvenient cables. Scatterbrain uses bluetooth, wifi, offline storage, and human movement to move messages throughout a social environment like rumors.
 
+{{ two_gallery(path1="/get_started/apps_view.png", path2="/get_started/power_view.png", desc1="Scatterbrain connects to a world of applications and content, offline and without internet", desc2 = "Multiple transport protocols allow for peak performance in the work of conditions") }}
+
 ## Where to get it?
 You can grab the official reference app from [Google Play](https://play.google.com/store/apps/details?id=net.ballmerlabs.scatterroutingservice). An example app using the Scatterbrain API to build a simple social network is available [here](https://play.google.com/store/apps/details?id=net.ballmerlabs.subrosa)
 

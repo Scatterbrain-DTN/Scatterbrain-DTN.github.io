@@ -1,4 +1,5 @@
 +++
+aliases = [ "privacy.html" ]
 +++
 
 # PRIVACY NOTICE
