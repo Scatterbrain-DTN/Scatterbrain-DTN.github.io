@@ -10,9 +10,6 @@ The Scatterbrain Router app itself comes with a simple chat app built-in that al
 If you are a developer or otherwise want to learn how to contribute to the Scatterbrain ecosystem, check out the [android api](@/docs/android.md) for building android apps or the [desktop api](@/docs/desktop.md) for building desktop apps that pair with an android phone. Your contributions are greatly appreciated!
 
 
-{{ two_gallery(path1="/get_started/apps_view.png", path2="/get_started/power_view.png", desc1="UI for connecting applications to the Scatterbrain Router", desc2 = "UI for monitoring transport protocols and recently seen applications") }}
-
-
 ## Installing android based Scatterbrain apps
 Android Scatterbrain apps are installed from Google Play or via an APK, like any other android app. The only requirement is that the Scatterbrain router be installed BEFORE installing the 3rd party app. This is because of a flaw in the way android handles custom permissions.
 
