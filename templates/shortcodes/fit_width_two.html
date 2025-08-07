@@ -1,6 +1,6 @@
-{% set image1 = resize_image(path=path1, width=270, height=600, op="scale") %}
-{% set image2 = resize_image(path=path2, width=270, height=600, op="scale") %}
-<div class="flex gap-4 content-end items-end">
+{% set image1 = resize_image(path=path1, width=width, op="fit_width") %} {% set
+image2 = resize_image(path=path2, width=width, op="fit_width") %}
+<div class="flex items-end content-start">
     <figure>
         <img
             class="h-auto max-w-full rounded-lg"

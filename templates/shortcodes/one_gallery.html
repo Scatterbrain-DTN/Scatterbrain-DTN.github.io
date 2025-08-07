@@ -1,8 +1,8 @@
 {% set image = resize_image(path=path, width=270, height=600, op="scale") %}
-<div class="flex items-center">
-    <figure>
+<div class="flex items-center content-center">
+    <figure class="content-center">
         <img
-            class="h-auto max-w-full rounded-lg"
+            class="mx-auto max-w-full rounded-lg"
             src="{{ image.url }}"
             alt="{{ desc }}"
         />

@@ -5,6 +5,10 @@ description = "Scatterbrain can be extended with 3rd party apps from Google Play
 
 Most of Scatterbrain's functionality comes from 3rd party apps. Sadly, there are only two of them available currently. [Subrosa](https://play.google.com/store/apps/details?id=net.ballmerlabs.subrosa) is an android discussion forum app, and [Subrosa Desktop](https://github.com/Scatterbrain-DTN/subrosa-desktop) is a flutter based desktop version of Subrosa.
 
+{{ fit_width(path="/get_started/subrosamobile.png", desc="A reddit or USENET like discussion forum app supporting nested communities, anonymous posting or cryptographic identities", width=250) }}
+
+{{ fit_width(path="/get_started/subrosadesktop.png", desc = "Multiple transport protocols allow for peak performance in the work of conditions", width = 500) }}
+
 The Scatterbrain Router app itself comes with a simple chat app built-in that allows you to message the network globally, advertise your own apps, or find other users nearby.
 
 If you are a developer or otherwise want to learn how to contribute to the Scatterbrain ecosystem, check out the [android api](@/docs/android.md) for building android apps or the [desktop api](@/docs/desktop.md) for building desktop apps that pair with an android phone. Your contributions are greatly appreciated!
