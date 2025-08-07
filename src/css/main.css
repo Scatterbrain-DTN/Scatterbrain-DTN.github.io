@@ -163,10 +163,6 @@
         @apply kbd;
     }
 
-    figure {
-        @apply w-full overflow-x-auto;
-    }
-
     table {
         @apply table table-zebra;
         @apply mb-4;
