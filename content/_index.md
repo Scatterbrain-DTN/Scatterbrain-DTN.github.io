@@ -11,7 +11,13 @@ Scatterbrain is a platform for building apps that work over long distances witho
 {{ two_gallery(path1="/get_started/apps_view.png", path2="/get_started/power_view.png", desc1="Scatterbrain connects to a world of applications and content, offline and without internet", desc2 = "Multiple transport protocols allow for peak performance in the work of conditions") }}
 
 ## Where to get it?
-You can grab the official reference app from [Google Play](https://play.google.com/store/apps/details?id=net.ballmerlabs.scatterroutingservice). An example app using the Scatterbrain API to build a simple social network is available [here](https://play.google.com/store/apps/details?id=net.ballmerlabs.subrosa)
+
+You can grab the official reference app from [Google Play](https://play.google.com/store/apps/details?id=net.ballmerlabs.scatterroutingservice). For more recent nightly builds you can also check out [Github Releases](https://github.com/Scatterbrain-DTN/RoutingServiceFrontend/releases).
+
+<a href='https://play.google.com/store/apps/details?id=net.ballmerlabs.scatterroutingservice'><img style="width:164px" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+
+An example app using the Scatterbrain API to build a simple social network is available [here](https://play.google.com/store/apps/details?id=net.ballmerlabs.subrosa)
+
 
 ## How does Scatterbrain compare with similar apps
 ### Protocols supported
